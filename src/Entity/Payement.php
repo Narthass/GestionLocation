@@ -19,12 +19,16 @@ class Payement
     #[ORM\Column(type: 'date')]
     private $date;
 
+ 
+
+    #[ORM\ManyToOne(targetEntity: Contrat::class)]
+    #[ORM\JoinColumn(nullable: false)] 
+    private $contrat;
+
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $MoyenPayement;
 
-    #[ORM\ManyToOne(targetEntity: contrat::class)]
-    #[ORM\JoinColumn(nullable: false)] 
-    private $contrat;
+  
 
     public function getId(): ?int
     {
@@ -55,17 +59,7 @@ class Payement
         return $this;
     }
 
-    public function getMoyenPayement(): ?string
-    {
-        return $this->MoyenPayement;
-    }
 
-    public function setMoyenPayement(?string $MoyenPayement): self
-    {
-        $this->MoyenPayement = $MoyenPayement;
-
-        return $this;
-    }
 
     public function getContrat(): ?contrat
     {
@@ -78,4 +72,17 @@ class Payement
 
         return $this;
     }
+
+    public function getMoyenPayement(): ?string
+    {
+        return $this->MoyenPayement;
+    }
+
+    public function setMoyenPayement(?string $MoyenPayement): self
+    {
+        $this->MoyenPayement = $MoyenPayement;
+
+        return $this;
+    }
+
 }

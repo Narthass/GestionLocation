@@ -11,6 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class PayementType extends AbstractType
 {
@@ -21,11 +23,24 @@ class PayementType extends AbstractType
             ->add('date', DateType::class)
             ->add(
                 'MoyenPayement',
-                EnumType::class,
+                ChoiceType::class,
                 [
-                    'class' => EnumPayement::class ,
+                    'choices' => [
+                        'CB'=>'CB',
+                        'cheque'=>'cheque',
+                        'liquide'=>'liquide',
+                    ],
+                    
                 ]
-            );
+            )
+            
+            ->add('submit', SubmitType::class, [
+                'label' => 'Valider',
+                'attr' => [
+                    'class' => 'w3-button w3-black w3-margin-bottom',
+                    'style' => 'margin-top: 10px',
+                ]
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

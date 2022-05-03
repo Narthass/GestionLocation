@@ -18,43 +18,40 @@
 	</style>
 
 	<h1>Liste des payements de
-		{{ client.nom }}
-		{{ client.prenom }}
+		{#{{ payements.contrat.client.nom }}
+		{{ payements.contrat.client.prenom}} #}
 	</h1>
-	<td><a href="{{path('contrat_create')}}" role="button" class="w3-btn w3-white w3-border w3-border-yellow w3-round-xlarge">Ajouter un contrat</a></td>
-	{% for contrat in client.contrats %}
+	<td><a href="{{path('payement_create',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-yellow w3-round-xlarge">Archiver un payement</a></td>
+	{% for payement in payements %}
+			{% if payement is not null %}	
 
 		
-			<h2>contrat :{{contrat.id}}</h2>
+			<h2>payement :{{payement.id}}</h2>
 			<table class="w3-table w3-bordered w3-centered ">
 				<tr>
-					<th>surface</th>
+					<th>Somme payee</th>
 
-					<th>situation payement</th>
-					<th>montant du loyer</th>
+					
+					<th>Moyen payement</th>
+					<th>Date</th>
 				</tr>
 
 
 				<tr>
-					<td>{{contrat.surface}}</td>
+					<td>{{payement.SommePayee}}</td>
+					
 					<td>
-						{% if contrat.SituationPayement == 'non' %}
-							<i class="material-icons">close</i>
+						{{payement.MoyenPayement}}
 
-						{% else %}
-							<i class="material-icons">done</i>
-						{% endif %}
 
 					</td>
-					<td>{{contrat.loyer}}</td>
 					<td>
-						<a href="{{path('contrat_delete',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-red w3-round-xlarge">supprimer</a>
+					{{payement.date|date('d/m/Y')}}
 					</td>
-					<td>
-						<a href="{{path('contrat_update',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-blue w3-round-xlarge">modifier</a>
-					</td>
+					
 				</tr>
 			</table>
+			{% endif %}
 		
 	{% endfor %}
 

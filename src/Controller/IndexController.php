@@ -212,42 +212,55 @@ class IndexController extends AbstractController
         ]);
     }
 
-    #[Route('/display/payements/{contratId}', name: 'payement_display')]
+    #[Route('/display/payements/{contratId}', name: 'payements_display')]
     public function displayPayements(int $contratId, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
         $payementRepository = $entityManager->getRepository(Payement::class);
         $payements = $payementRepository->findBy(['contrat' => $contratId]);
+        $contratRepository=$entityManager->getRepository(Contrat::class);
+        $contrat=$contratRepository->findOneBy(['id'=>$contratId]);
 
 
 
-        return $this->render('index/contrats.html.twig', [
+        return $this->render('index/payements.html.twig', [
             'payements' => $payements,
+            'contrat'=>$contrat
+            
 
 
         ]);
     }
 
-    #[Route('/payement/create/', name: 'payement_create')]
-    public function createPayement(ManagerRegistry $doctrine, Request $request): Response
+    #[Route('/payement/create/{contratId}', name: 'payement_create')]
+    public function createPayement(int $contratId ,ManagerRegistry $doctrine, Request $request): Response
     {
         $entityManager = $doctrine->getManager();
         $payement = new Payement;
         $payementForm = $this->createForm(PayementType::class, $payement);
         $payementForm->handleRequest($request);
+       
+        
+        
         if ($payementForm->isSubmitted() && $payementForm->isValid()) {
-
+            $contratRepository=$entityManager->getRepository(Contrat::class);
+            $contrat=$contratRepository->findOneBy(['id'=>$contratId]);
+            
+            
+        
+            $payement->setContrat($contrat);
           
             $entityManager->persist($payement);
             $entityManager->flush();
 
 
-            return $this->redirectToRoute('app_index');
+            return $this->redirectToRoute('payements_display',['contratId'=>$contratId]);
         }
         return $this->render('index/dataform.html.twig', [
 
-            'formName' => 'Création du contrat',
+            'formName' => 'Archivage du payement',
             'dataForm' => $payementForm->createView(),
+            
         ]);
     }
 
