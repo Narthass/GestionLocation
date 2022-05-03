@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<h1>Liste des contrats de
+		{{ client.nom }}
+		{{ client.prenom }}
+	</h1>
+	<td><a href="{{path('contrat_create')}}" role="button" class="w3-btn w3-white w3-border w3-border-yellow w3-round-xlarge">Ajouter un contrat</a></td>
+	{% for contrat in client.contrats %}
+
+		
+			<h2>contrat :{{contrat.id}}</h2>
+			<table class="w3-table w3-bordered w3-centered ">
+				<tr>
+					<th>surface</th>
+
+					<th>situation payement</th>
+					<th>montant du loyer</th>
+				</tr>
+
+
+				<tr>
+					<td>{{contrat.surface}}</td>
+					<td>
+						{% if contrat.SituationPayement == 'non' %}
+							<i class="material-icons">close</i>
+
+						{% else %}
+							<i class="material-icons">done</i>
+						{% endif %}
+
+					</td>
+					<td>{{contrat.loyer}}</td>
+					<td>
+						<a href="{{path('contrat_delete',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-red w3-round-xlarge">supprimer</a>
+					</td>
+					<td>
+						<a href="{{path('contrat_update',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-blue w3-round-xlarge">modifier</a>
+					</td>
+				</tr>
+			</table>
+		
+	{% endfor %}
+
+{% endblock %}
