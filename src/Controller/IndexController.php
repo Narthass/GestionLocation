@@ -11,9 +11,12 @@ use App\Form\ClientType;
 use App\Form\ContratType;
 use App\Form\PayementType;
 use Doctrine\Persistence\ManagerRegistry;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
@@ -138,7 +141,7 @@ class IndexController extends AbstractController
         $contratForm = $this->createForm(ContratType::class, $contrat);
         $contratForm->handleRequest($request);
         if ($contratForm->isSubmitted() && $contratForm->isValid()) {
-
+            $contrat->setMontantRestant($contrat->getLoyer());
             $contrat->setProchaineEcheance(clone $contrat->getDernierLoyer());
             date_add($contrat->getProchaineEcheance(), $contrat->getFrequencePayement());
             $entityManager->persist($contrat);
@@ -213,19 +216,43 @@ class IndexController extends AbstractController
     }
 
     #[Route('/display/payements/{contratId}', name: 'payements_display')]
-    public function displayPayements(int $contratId, ManagerRegistry $doctrine): Response
+    public function displayPayements(LoggerInterface $logger,int $contratId, ManagerRegistry $doctrine,Request $request): Response
     {
         $entityManager = $doctrine->getManager();
         $payementRepository = $entityManager->getRepository(Payement::class);
         $payements = $payementRepository->findBy(['contrat' => $contratId]);
         $contratRepository=$entityManager->getRepository(Contrat::class);
         $contrat=$contratRepository->findOneBy(['id'=>$contratId]);
+        $reglement= ['reglement'=>0];
+        
+        $form = $this->createFormBuilder($reglement)
+            
+        ->add('reglement', NumberType::class)
+            
+            
+            ->getForm();
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
 
 
+                $data=$request->request->get('reglement');
+                $avant=$contrat->getMontantRestant();
+                $contrat->setMontantRestant($avant + $data);
+                
+                $entityManager->persist($contrat);
+                $entityManager->flush();
+    
+                return $this->redirectToRoute('payements_display',['contratId'=>$contratId]);
+            }
+
+            
 
         return $this->render('index/payements.html.twig', [
             'payements' => $payements,
-            'contrat'=>$contrat
+            'contrat'=>$contrat,
+            'form'=>$form->createView(),
+            
             
 
 
@@ -247,7 +274,7 @@ class IndexController extends AbstractController
             $contrat=$contratRepository->findOneBy(['id'=>$contratId]);
             
             
-        
+            
             $payement->setContrat($contrat);
           
             $entityManager->persist($payement);
