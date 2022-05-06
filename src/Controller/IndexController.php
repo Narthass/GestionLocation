@@ -11,15 +11,17 @@ use App\Form\ClientType;
 use App\Form\ContratType;
 use App\Form\PayementType;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Form\FormBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormBuilder;
 
 class IndexController extends AbstractController
 {
@@ -294,6 +296,27 @@ class IndexController extends AbstractController
             'dataForm' => $payementForm->createView(),
 
         ]);
+    }
+
+    #[Route('/email',name:'mail',)]
+    public function sendEmail(MailerInterface $mailer): Response
+    {
+        $email = (new Email())
+            ->from('admin@symrecipe.com')
+            ->to('admin@symrecipe.com')
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Time for Symfony Mailer!')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>');
+
+            dump($email);
+        $mailer->send($email);
+        return $this->redirectToRoute('app_index');
+
+        // ...
     }
 
     //Cette route sert à voir quels sont les contrat bientot arrivés à échéance

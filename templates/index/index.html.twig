@@ -51,7 +51,7 @@
   <td><a href="{{path('client_delete',{'clientId':client.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-red w3-round-xlarge">supprimer</a></td>
   <td><a href="{{path('client_update',{'clientId':client.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-blue w3-round-xlarge">modifier</a></td>
    <td><a href="{{path('contrat_display',{'clientId':client.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-purple w3-round-xlarge">contrats</a></td>
- 
+ <td><a href="{{path('mail')}}" role="button" class="w3-btn w3-white w3-border w3-border-purple w3-round-xlarge">envoie mail</a></td>
 </tr>
 {% endfor %}
 <tr>

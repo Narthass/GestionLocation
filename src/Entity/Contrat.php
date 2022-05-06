@@ -19,7 +19,7 @@ class Contrat
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $surface;
 
-    #[ORM\Column(type: 'string', length: 3, nullable: true)]
+    #[ORM\Column(type: 'string', length: 3, nullable: false)]
     private $SituationPayement;
 
     #[ORM\Column(type: 'float', nullable: true)]
