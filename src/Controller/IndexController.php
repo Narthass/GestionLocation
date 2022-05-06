@@ -219,41 +219,33 @@ class IndexController extends AbstractController
         $payements = $payementRepository->findBy(['contrat' => $contratId]);
         $contratRepository = $entityManager->getRepository(Contrat::class);
         $contrat = $contratRepository->findOneBy(['id' => $contratId]);
+        
         $payement=new Payement;
-        $payement->setMoyenPayement('CB');
-        $payement->setDate(new \Datetime('now'));
         $payement->setContrat($contrat);
+        $payementForm = $this->createForm(PayementType::class,$payement);
         
-           
-       
-
-        $form = $this->createFormBuilder($payement)
-
-
-            ->add('SommePayee', NumberType::class,)
-            ->add('submit', SubmitType::class,)
-
-
-            ->getForm();
-            $form->handleRequest($request);
         
-        $logger->info('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-        if ($form->isSubmitted() && $form->isValid()) {
+        dump($payementForm->handleRequest($request));
 
 
-            $data = $form->getData()['SommePayee'];
+
+        if ($payementForm->isSubmitted() && $payementForm->isValid()) {
+
+
+            $data=$payement->getSommePayee();
             
 
             $avant = $contrat->getMontantRestant();
             
-            $contrat->setMontantRestant($avant+$data);
+            $contrat->setMontantRestant($avant-$data);
            
 
-            $entityManager->persist($contrat);
+            
             $entityManager->persist($payement);
             $entityManager->flush();
+            return $this->redirect($request->getUri());
             
-            return $this->redirectToRoute('app_index');
+            
         }
 
 
@@ -263,7 +255,7 @@ class IndexController extends AbstractController
             'contrat' => $contrat,
 
             
-            'form' => $form->createView(),
+            'form' => $payementForm->createView(),
 
 
 
@@ -272,7 +264,7 @@ class IndexController extends AbstractController
         ]);
     }
 
-    #[Route('/payement/create/{contratId}', name: 'payement_create')]
+    #[Route('/payement/create/{contratId}', name: 'payement_create',)]
     public function createPayement(int $contratId, ManagerRegistry $doctrine, Request $request): Response
     {
         $entityManager = $doctrine->getManager();
@@ -282,7 +274,7 @@ class IndexController extends AbstractController
 
 
 
-        if ($payementForm->isSubmitted() && $payementForm->isValid()) {
+       if ($payementForm->isSubmitted() && $payementForm->isValid()) {
             $contratRepository = $entityManager->getRepository(Contrat::class);
             $contrat = $contratRepository->findOneBy(['id' => $contratId]);
 

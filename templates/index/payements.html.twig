@@ -24,23 +24,26 @@
 
 	<a href="{{path('payement_create',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-yellow w3-round-xlarge">Archiver un payement</a>
 	
-	<form class="w3-container w3-card-4 w3-green w3-text-white">
+	
 <h2 class="w3-center">Entrer un nouveau règlement</h2>
  
 <div class="w3-row w3-section">
   <div class="w3-col" style="width:50px"><i class="material-icons-outlined">
 euro_symbol
 </i></div>
-    <div class="w3-rest">
-      {{ form(form) }}
-    </div>
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="form">
+      
+      <div>
+	  	{{ form(form) }}
+      </div>
+  </div>
 </div>
 
 
 
 <br>
-<a class="w3-btn w3-margin-bottom" href="tryit.asp?filename=tryw3css_input_contact" target="_blank">Enregistrer</a>
-</form>
+
+
 	
 	
 	<h1>Liste des payements de
