@@ -2,11 +2,16 @@
 
 namespace App\Repository;
 
+use DateTime;
 use App\Entity\Contrat;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Symfony\Component\Mime\Email;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\MailerInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
  * @method Contrat|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,6 +21,46 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ContratRepository extends ServiceEntityRepository
 {
+
+    /**
+     * @return Contrat[]
+     */
+    public function tableauAlerte(): QueryBuilder
+
+    {
+        
+        $qb=$this->createQueryBuilder('u')
+        ->andWhere('u.ProchaineEcheance = :date')
+        ->setParameters([
+            'date'=> new \DateTime('now'),
+        ]);
+        $query=$qb->getQuery();
+        return $query->execute();
+    
+       
+    }
+
+   
+    public function mailAlerte($alerte,MailerInterface $mailer): void
+    {
+        $email = (new TemplatedEmail())
+            ->from('admin@symrecipe.com')
+            ->to('admin@symrecipe.com')
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Time for Symfony Mailer!')
+            
+            ->htmlTemplate('emails/alerte.html.twig')
+            ->context([
+                'alerte'=>$alerte,
+
+            ]);
+
+        
+        $mailer->send($email);
+    }
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Contrat::class);
