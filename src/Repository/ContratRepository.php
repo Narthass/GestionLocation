@@ -25,15 +25,13 @@ class ContratRepository extends ServiceEntityRepository
     /**
      * @return Contrat[]
      */
-    public function tableauAlerte(): QueryBuilder
+    public function tableauAlerte(): array
 
     {
         
-        $qb=$this->createQueryBuilder('u')
-        ->andWhere('u.ProchaineEcheance = :date')
-        ->setParameters([
-            'date'=> new \DateTime('now'),
-        ]);
+        $qb=$this->createQueryBuilder('c')
+        ->andWhere("c.surface ='cudufcutuc' ");
+       
         $query=$qb->getQuery();
         return $query->execute();
     
@@ -41,8 +39,9 @@ class ContratRepository extends ServiceEntityRepository
     }
 
    
-    public function mailAlerte($alerte,MailerInterface $mailer): void
+    public function mailAlerte($alerte): void
     {
+        $mailer= new MailerInterface;
         $email = (new TemplatedEmail())
             ->from('admin@symrecipe.com')
             ->to('admin@symrecipe.com')
