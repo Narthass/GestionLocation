@@ -14,6 +14,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Form\FormBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -299,9 +300,39 @@ class IndexController extends AbstractController
     }
 
     #[Route('/email',name:'mail',)]
-    public function sendEmail(MailerInterface $mailer): Response
+    public function sendEmail(ManagerRegistry $doctrine,MailerInterface $mailer): Response
     {
-        $email = (new Email())
+        $entityManager = $doctrine->getManager();
+        $contratRepository = $entityManager->getRepository(Contrat::class);
+        $contrats = $contratRepository->findAll();
+        $alerter = null;
+        foreach ($contrats as $contrat) {
+            $actuel = new \DateTime('now');
+            $pEcheance = $contrat->getProchaineEcheance();
+
+            $frequence = $contrat->getFrequencePayement();
+
+
+
+            if (date_format($pEcheance,'d-m-Y') == $actuel->format('d-m-Y') ) {
+                if (is_null($alerter) == true) {
+                    $alerter = [];
+                }
+                $alerter[] = $contrat;
+            }
+            
+            
+            if ($actuel > $pEcheance) {
+              date_add($contrat->getProchaineEcheance(),$contrat->getFrequencePayement());
+                
+
+                
+            
+            }
+            
+        }
+        $entityManager->flush();
+        $email = (new TemplatedEmail())
             ->from('admin@symrecipe.com')
             ->to('admin@symrecipe.com')
             //->cc('cc@example.com')
@@ -309,16 +340,20 @@ class IndexController extends AbstractController
             //->replyTo('fabien@example.com')
             //->priority(Email::PRIORITY_HIGH)
             ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
+            ->htmlTemplate('emails/alerte.html.twig')
+            
+            ->context([
+                'alerte'=>$alerter,
 
-            dump($email);
+            ]);
+          
         $mailer->send($email);
         return $this->redirectToRoute('app_index');
 
         // ...
-    }
+    
 
     //Cette route sert à voir quels sont les contrat bientot arrivés à échéance
 
+}
 }

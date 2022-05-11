@@ -4,6 +4,9 @@
 
 {% block body %}
   <p>Les contrats suivant doivent etre payé aujourd'hui:</p>
-  {{ alerte }}
+  {% for contrat in alerte %}
+    {{ contrat.client.nom }}
+    {{ contrat.client.prenom }}
+  {% endfor %}
   
 {% endblock %}
