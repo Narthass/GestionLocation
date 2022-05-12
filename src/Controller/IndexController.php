@@ -321,17 +321,19 @@ class IndexController extends AbstractController
                 $alerter[] = $contrat;
             }
             
-            
-            if ($actuel > $pEcheance) {
-              date_add($contrat->getProchaineEcheance(),$contrat->getFrequencePayement());
-                
+            if(date_format($pEcheance,'d-m-Y') < $actuel->format('d-m-Y') ) {
+              $contrat->setProchaineEcheance(clone $contrat->getProchaineEcheance());
+              date_add($contrat->getProchaineEcheance(), $contrat->getFrequencePayement());
+              $entityManager->persist($contrat);
+              $entityManager->flush();
+            }
 
                 
             
-            }
+            
             
         }
-        $entityManager->flush();
+        
         $email = (new TemplatedEmail())
             ->from('admin@symrecipe.com')
             ->to('admin@symrecipe.com')
