@@ -310,7 +310,7 @@ class IndexController extends AbstractController
             $actuel = new \DateTime('now');
             $pEcheance = $contrat->getProchaineEcheance();
 
-            $frequence = $contrat->getFrequencePayement();
+            
 
 
 
@@ -333,6 +333,7 @@ class IndexController extends AbstractController
             
             
         }
+        if(is_null($alerter)==false){
         
         $email = (new TemplatedEmail())
             ->from('admin@symrecipe.com')
@@ -350,6 +351,7 @@ class IndexController extends AbstractController
             ]);
           
         $mailer->send($email);
+        }
         return $this->redirectToRoute('app_index');
 
         // ...
