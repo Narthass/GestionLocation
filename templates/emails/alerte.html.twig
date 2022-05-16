@@ -1,12 +1,15 @@
-{% extends 'base.html.twig' %}
+
 
 {% block title %}{% endblock %}
 
 {% block body %}
   <p>Les contrats suivant doivent etre payé aujourd'hui:</p>
+  <ul>
   {% for contrat in alerte %}
-    {{ contrat.client.nom }}
-    {{ contrat.client.prenom }}
+    <li>
+    Le contrat : {{contrat.id}}
+    du client: {{ contrat.client.nom }} {{ contrat.client.prenom }}
+    </li>
   {% endfor %}
-  
+  </ul>
 {% endblock %}
