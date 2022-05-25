@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Contrat;
 use App\Form\ContratType;
+use App\Service\ServiceContrat;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ class ContratController extends AbstractController
             $contrat->setProchaineEcheance(clone $contrat->getDernierLoyer());
             date_add($contrat->getProchaineEcheance(), $contrat->getFrequencePayement());
             $entityManager->persist($contrat);
-            $entityManager->flush();
+            $entityManager->flush(); 
 
 
             return $this->redirectToRoute('app_index');
@@ -50,11 +51,9 @@ class ContratController extends AbstractController
 
 
     #[Route('/display/contrats/{clientId}', name: 'contrat_display')]
-    public function displayContrats(int $clientId, ManagerRegistry $doctrine): Response
+    public function displayContrats(int $clientId,  ServiceContrat $serviceContrat): Response
     {
-        $entityManager = $doctrine->getManager();
-        $clientRepository = $entityManager->getRepository(Client::class);
-        $client = $clientRepository->find($clientId);
+       $client=$serviceContrat->displayContrat($clientId);
 
 
 
@@ -81,7 +80,7 @@ class ContratController extends AbstractController
 
             $contrat->setProchaineEcheance(clone $contrat->getDernierLoyer());
             date_add($contrat->getProchaineEcheance(), $contrat->getFrequencePayement());
-            $contrat->setMontantRestant();
+            
             $entityManager->persist($contrat);
             $entityManager->flush();
 

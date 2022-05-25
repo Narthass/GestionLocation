@@ -68,8 +68,12 @@ class ContratType extends AbstractType
             ])
 
             ->add('DernierLoyer',DateType::class,[
-                'label' => 'A quelle date était la dernière échéance?',
+                'label' => 'A quelle date commence le contrat?',
                 'format'=> 'dd-MM-yyyy',
+                'data_class' =>null,
+                
+                
+                'data' => new \Datetime('now'),
                 
                 
                 

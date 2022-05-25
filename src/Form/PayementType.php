@@ -21,7 +21,17 @@ class PayementType extends AbstractType
     {
         $builder
             ->add('SommePayee', NumberType::class)
-            ->add('date', DateType::class)
+            ->add('date', DateType::class,[
+                
+                'format'=> 'dd-MM-yyyy',
+                'data_class' =>null,
+                
+                
+                'data' => new \Datetime('now'),
+                
+                
+                
+            ])
             ->add(
                 'MoyenPayement',
                 ChoiceType::class,

@@ -28,25 +28,21 @@
 			<h2>contrat :{{contrat.id}}</h2>
 			<table class="w3-table w3-bordered w3-centered ">
 				<tr>
-					<th>surface</th>
+					<th>Surface</th>
 
-					<th>situation payement</th>
-					<th>montant du loyer</th>
+					
+					<th>Montant du loyer</th>
+					<th>Montant restant à payer</th>
+					<th>Date de la prochaine échéance</th>
 				</tr>
 
 
 				<tr>
 					<td>{{contrat.surface}}</td>
-					<td>
-						{% if contrat.SituationPayement == 'non' %}
-							<i class="material-icons">close</i>
-
-						{% else %}
-							<i class="material-icons">done</i>
-						{% endif %}
-
-					</td>
+					
 					<td>{{contrat.loyer}}</td>
+					<td>{{contrat.MontantRestant}}</td>
+					<td>{{contrat.ProchaineEcheance | date('d/m/y')}}</td>
 					<td>
 						<a href="{{path('contrat_delete',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-red w3-round-xlarge">supprimer</a>
 					</td>

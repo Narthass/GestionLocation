@@ -39,6 +39,7 @@ class ClientType extends AbstractType
                 'label' =>'Numero de telephone du client',
                 'attr' => [
                     'class' => 'w3-input w3-border w3-round w3-light-grey',
+                    'contraints' =>'',
                 ],
             ])
            
