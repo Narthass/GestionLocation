@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Client;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -39,8 +40,13 @@ class ClientType extends AbstractType
                 'label' =>'Numero de telephone du client',
                 'attr' => [
                     'class' => 'w3-input w3-border w3-round w3-light-grey',
-                    'contraints' =>'',
+                    
                 ],
+                'constraints' =>[
+                    new Regex('/^((\+[0-9]{2})|0)[0-9]{9}$/'),
+
+                    
+                ]
             ])
            
             ->add('submit', SubmitType::class, [
