@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\PayementRepository;
+use App\Config\EnumTypePayement;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PayementRepository;
 
 #[ORM\Entity(repositoryClass: PayementRepository::class)]
 class Payement
@@ -27,6 +28,10 @@ class Payement
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $MoyenPayement;
+
+    #[ORM\Column(type: 'string',enumType:EnumTypePayement::class)]
+    private $TypePayement;
+
 
   
 
@@ -84,5 +89,11 @@ class Payement
 
         return $this;
     }
+
+   
+
+   
+
+    
 
 }

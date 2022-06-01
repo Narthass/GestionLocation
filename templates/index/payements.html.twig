@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!
+{% block title %}Payements
 {% endblock %}
 
 {% block body %}
@@ -67,7 +67,14 @@
 				<h2>payement :{{payement.id}}</h2>
 				<table class="w3-table w3-bordered w3-centered ">
 					<tr>
-						<th>Somme payee</th>
+						<th>
+							{% if payement.TypePayement == 'Payement'%}
+							Payement
+							{% else %}
+							Remboursement
+							{% endif %}
+
+						</th>
 
 
 						<th>Moyen payement</th>

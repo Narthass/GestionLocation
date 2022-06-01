@@ -38,8 +38,14 @@ class PayementController extends AbstractController
 
 
             $avant = $contrat->getMontantRestant();
+            if($payement->getTypePayement()=='Payement'){
+                $contrat->setMontantRestant($avant - $data);
+            }
+            else {
+                $contrat->setMontantRestant($avant + $data);
 
-            $contrat->setMontantRestant($avant - $data);
+            }
+
 
             if ($contrat->getMontantRestant() < 1) {
                 $contrat->setSituationPayement('oui');
@@ -68,6 +74,30 @@ class PayementController extends AbstractController
     {
         return $contrat->getMontantRestant() - $payement->getSommePayee();
     }
+    public static function nouvelleBalanceApresRemboursement(Contrat $contrat, Payement $payement): int
+    {
+        return $contrat->getMontantRestant() + $payement->getSommePayee();
+    }
+    public static function calculMontantRestant(Contrat $contrat,Payement $payement): int
+    {
+        $data = $payement->getSommePayee();
+
+        $avant = $contrat->getMontantRestant();
+        if($payement->getTypePayement()=='Payement'){
+           return ($avant - $data);
+    
+        }
+        else {
+           return ($avant + $data);
+
+        }
+    }
+
+    public static function majMontantRestant(Contrat $contrat, Payement $payement): int {
+        $nouveauMontant = calculMontantRestant($contrat, $payement);
+        $contrat->setMontantRestant($nouveauMontant);
+        return $nouveauMontant;
+    }
 
 
     #[Route('/payement/create/{contratId}', name: 'payement_create',)]
@@ -83,6 +113,7 @@ class PayementController extends AbstractController
         if ($payementForm->isSubmitted() && $payementForm->isValid()) {
             $contratRepository = $entityManager->getRepository(Contrat::class);
             $contrat = $contratRepository->findOneBy(['id' => $contratId]);
+            
 
 
 

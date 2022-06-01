@@ -6,6 +6,7 @@ use App\Entity\Contrat;
 use App\Entity\Payement;
 use PHPUnit\Framework\TestCase;
 use App\Controller\IndexController;
+use App\Controller\PayementController;
 
 class CalculMontantRestantAPayerTest extends TestCase
 {
@@ -23,7 +24,7 @@ class CalculMontantRestantAPayerTest extends TestCase
         $payement->setSommePayee($somme);
         
         $contrat->setMontantRestant($restant);
-        $this->assertSame($expected,IndexController::nouvelleBalanceApresPaiement($contrat,$payement)) ;
+        $this->assertSame($expected,PayementController::nouvelleBalanceApresPaiement($contrat,$payement)) ;
     }
 
     public function Provider()
