@@ -94,7 +94,7 @@ class PayementController extends AbstractController
     }
 
     public static function majMontantRestant(Contrat $contrat, Payement $payement): int {
-        $nouveauMontant = calculMontantRestant($contrat, $payement);
+        $nouveauMontant = PayementController::calculMontantRestant($contrat, $payement);
         $contrat->setMontantRestant($nouveauMontant);
         return $nouveauMontant;
     }

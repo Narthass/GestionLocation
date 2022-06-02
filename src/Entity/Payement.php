@@ -29,8 +29,13 @@ class Payement
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $MoyenPayement;
 
-    #[ORM\Column(type: 'string',enumType:EnumTypePayement::class)]
+    #[ORM\Column(type: 'string', length: 255)]
     private $TypePayement;
+
+    
+
+  
+
 
 
   
@@ -85,9 +90,39 @@ class Payement
 
     public function setMoyenPayement(?string $MoyenPayement): self
     {
+        if($MoyenPayement=='CB' ||$MoyenPayement=='cheque' ||$MoyenPayement=='liquide')
+        {
+        
         $this->MoyenPayement = $MoyenPayement;
 
         return $this;
+        }
+        
+        else{
+            throw new \Exception("La valeur de MoyenPayement est incorrecte,seul les valeurs suivantes sont acceptées:-CB -cheque -liquide");
+        }
+    }
+
+    public function getTypePayement(): ?string
+    {
+        return $this->TypePayement;
+    }
+
+    public function setTypePayement(string $TypePayement): self
+    {
+        if ($TypePayement=='Payement' || $TypePayement=='Remboursement'){
+        
+        $this->TypePayement = $TypePayement;
+        
+
+        return $this;
+        }
+
+        else {
+        throw new \Exception("La valeur de TypePayement est incorrecte ,seul les valeurs suivantes sont acceptées:-Payement -Remboursement  ");
+        }
+
+        
     }
 
    

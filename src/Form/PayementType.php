@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class PayementType extends AbstractType
 {
@@ -26,9 +27,13 @@ class PayementType extends AbstractType
     {
         $builder
             ->add('SommePayee', NumberType::class,)
-            ->add('TypePayement',EntityType::class,[
-                'class' =>EnumTypePayement::class,
+            ->add('TypePayement',ChoiceType::class,[
+                
                 'label'=>'Quel type de payement est-ce?',
+                'choices'=>[
+                    'Payement'=>'Payement',
+                    'Remboursement'=>'Remboursement',
+                ],
                 'expanded'=>true,
                 'multiple'=>false,
             

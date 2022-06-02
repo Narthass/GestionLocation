@@ -5,7 +5,7 @@ namespace App\Tests;
 use App\Entity\Contrat;
 use App\Entity\Payement;
 use PHPUnit\Framework\TestCase;
-use App\Controller\IndexController;
+
 use App\Controller\PayementController;
 
 class CalculMontantRestantAPayerTest extends TestCase
