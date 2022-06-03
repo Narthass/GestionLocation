@@ -47,9 +47,7 @@ class PayementController extends AbstractController
             }
 
 
-            if ($contrat->getMontantRestant() < 1) {
-                $contrat->setSituationPayement('oui');
-            }
+           
 
 
 

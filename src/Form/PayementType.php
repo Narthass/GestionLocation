@@ -3,23 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Payement;
-
-use App\Config\EnumPayement;
-use App\Config\EnumTypePayement;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 
 class PayementType extends AbstractType
 {
@@ -33,6 +24,7 @@ class PayementType extends AbstractType
                 'choices'=>[
                     'Payement'=>'Payement',
                     'Remboursement'=>'Remboursement',
+                    
                 ],
                 'expanded'=>true,
                 'multiple'=>false,
@@ -61,6 +53,7 @@ class PayementType extends AbstractType
                         'CB'=>'CB',
                         'cheque'=>'cheque',
                         'liquide'=>'liquide',
+                        
                     ],
                     
                 ]

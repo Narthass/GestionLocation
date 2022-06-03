@@ -19,8 +19,7 @@ class Contrat
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $surface;
 
-    #[ORM\Column(type: 'string', length: 3, nullable: false)]
-    private $SituationPayement;
+    
 
     #[ORM\Column(type: 'float', nullable: true)]
     private $loyer;
@@ -78,17 +77,7 @@ class Contrat
 
 
 
-    public function getSituationPayement(): ?string
-    {
-        return $this->SituationPayement;
-    }
-
-    public function setSituationPayement(?string $SituationPayement): self
-    {
-        $this->SituationPayement = $SituationPayement;
-
-        return $this;
-    }
+   
 
     public function getLoyer(): ?float
     {

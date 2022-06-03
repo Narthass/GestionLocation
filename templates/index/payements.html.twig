@@ -36,8 +36,12 @@
 			<h2 class="w3-panel w3-red w3-card-4 w3-center">Montant restant à payer pour l'échéance en cours :{{contrat.MontantRestant}}	<i class="material-icons-outlined">
 				euro_symbol
 			</i></h2>
+			{% elseif contrat.MontantRestant < 0 %}
+			<h2 class="w3-panel w3-green w3-card-4 w3-center">Montant en excédant pour l'échéance en cours :{{contrat.MontantRestant}}	<i class="material-icons-outlined">
+				euro_symbol
+			</i></h2>
 			{% else %}
-			<h2 class="w3-panel w3-green w3-card-4 w3-center">Montant restant à payer pour l'échéance en cours :{{contrat.MontantRestant}}	<i class="material-icons-outlined">
+			<h2 class="w3-panel w3-green w3-card-4 w3-center">Montant entièrement réglé pour l'échéance en cours :{{contrat.MontantRestant}}	<i class="material-icons-outlined">
 				euro_symbol
 			</i></h2>
 
