@@ -6,7 +6,8 @@
 			{% block title %}Chabotterie vie!
 			{% endblock %}
 		</title>
-		<link rel="stylesheet" href="{{ asset('assets/css/w3.css') }}">
+		
+		
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 	
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
@@ -21,6 +22,12 @@
 	</head>
 	<body>
 		{% include 'layout/header.html.twig'%}
+		{% for message in app.flashes('success') %}
+            <div class="w3-panel w3-light-green">
+                {{ message }}
+            </div>
+        {% endfor %}
 		{% block body %}{% endblock %}
+		   
 	</body>
 </html>

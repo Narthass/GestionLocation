@@ -27,6 +27,10 @@ class ContratController extends AbstractController
             date_add($contrat->getProchaineEcheance(), $contrat->getFrequencePayement());
             $entityManager->persist($contrat);
             $entityManager->flush(); 
+            $this->addFlash(
+                'success',
+                'Le contrat a bien été créé !'
+            );
 
 
             return $this->redirectToRoute('app_index');
@@ -83,6 +87,10 @@ class ContratController extends AbstractController
             
             $entityManager->persist($contrat);
             $entityManager->flush();
+            $this->addFlash(
+                'notice',
+                'Le contrat a bien été modifié!'
+            );
 
 
             return $this->redirectToRoute('app_index');

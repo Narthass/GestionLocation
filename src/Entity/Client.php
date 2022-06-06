@@ -32,7 +32,7 @@ class Client
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $picAddress;
 
-    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Contrat::class)]
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Contrat::class, cascade:['remove'])]
     private $contrats;
 
     public function __construct()
