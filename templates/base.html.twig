@@ -23,7 +23,7 @@
 	<body>
 		{% include 'layout/header.html.twig'%}
 		{% for message in app.flashes('success') %}
-            <div class="w3-panel w3-light-green">
+            <div class="w3-panel w3-light-green" id="flash">
                 {{ message }}
             </div>
         {% endfor %}

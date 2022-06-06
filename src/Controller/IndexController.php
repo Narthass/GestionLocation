@@ -32,7 +32,7 @@ class IndexController extends AbstractController
 
 
 
-            if (date_format($pEcheance, 'd-m-Y') == $actuel->format('d-m-Y') && $contrat->getSituationPayement() == 'non') {
+            if (date_format($pEcheance, 'd-m-Y') == $actuel->format('d-m-Y') && $contrat->getMontantRestant() > 0) {
                 if (is_null($alerter) == true) {
                     $alerter = [];
                 }
@@ -68,6 +68,10 @@ class IndexController extends AbstractController
 
             $entityManager->persist($client);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Le client a bien été créé !'
+            );
 
 
             return $this->redirectToRoute('app_index');
@@ -109,6 +113,10 @@ class IndexController extends AbstractController
             //Prix minimum de 1€ pour effectuer la persistance
             $entityManager->persist($client);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Les informations du client ont bien été mise à jour !'
+            );
 
             //Nous retournons au backoffice Administrateur
             return $this->redirectToRoute('app_index');

@@ -53,6 +53,10 @@ class PayementController extends AbstractController
 
             $entityManager->persist($payement);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Le payement a bien été enregistré !'
+            );
             return $this->redirect($request->getUri());
         }
 
