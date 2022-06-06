@@ -44,7 +44,7 @@
 					<td>{{contrat.MontantRestant}}</td>
 					<td>{{contrat.ProchaineEcheance | date('d/m/y')}}</td>
 					<td>
-						<a href="{{path('contrat_delete',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-red w3-round-xlarge">supprimer</a>
+						<a href="{{path('contrat_delete',{'contratId':contrat.id})}}" onclick="return confirm('etes vous sur de vouloir supprimer ce client?')" role="button" class="w3-btn w3-white w3-border w3-border-red w3-round-xlarge">supprimer</a>
 					</td>
 					<td>
 						<a href="{{path('contrat_update',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-blue w3-round-xlarge">modifier</a>
