@@ -3,6 +3,19 @@
 {% block title %}Contrats
 {% endblock %}
 
+{% block javascripts %}
+		
+			<script> 
+				function afficherContratsArchives() {
+    			var bouttonContratsArchives = document.getElementById("contratsArchives");
+    			if (bouttonContratsArchives.style.display === "none") {
+     			 bouttonContratsArchives.style.display = "block";
+    			} else {
+      			bouttonContratsArchives.style.display = "none";
+   				 }
+  			}
+			</script>
+{% endblock %}
 {% block body %}
 	<style>
 		.example-wrapper {
@@ -23,14 +36,14 @@
 	</h1>
 	<td><a href="{{path('contrat_create')}}" role="button" class="w3-btn w3-white w3-border w3-border-yellow w3-round-xlarge">Ajouter un contrat</a></td>
 	{% for contrat in client.contrats %}
-
+		{% if contrat.archivé == false %}
 		
 			<h2>contrat :{{contrat.id}}</h2>
 			<table class="w3-table w3-bordered w3-centered ">
 				<tr>
 					<th>Surface</th>
 
-					
+
 					<th>Montant du loyer</th>
 					<th>Montant restant à payer</th>
 					<th>Date de la prochaine échéance</th>
@@ -39,7 +52,7 @@
 
 				<tr>
 					<td>{{contrat.surface}}</td>
-					
+
 					<td>{{contrat.loyer}}</td>
 					<td>{{contrat.MontantRestant}}</td>
 					<td>{{contrat.ProchaineEcheance | date('d/m/y')}}</td>
@@ -52,9 +65,45 @@
 					<td>
 						<td><a href="{{path('payements_display',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-purple w3-round-xlarge">payements</a></td>
 					</td>
+					<td>
+						<td><a href="{{path('contrat_archiver',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-brown w3-round-xlarge">archiver</a></td>
+					</td>
 				</tr>
 			</table>
+			{% endif %}
+			{% endfor %}
+			<button onclick="afficherContratsArchives()">Les contrats archivés</button>
 		
-	{% endfor %}
+			
+			<div id="contratsArchives">
+	  			<table>
+				  	<tr>
+						<th>Surface</th>
+
+
+						<th>Montant du loyer</th>
+						<th>Montant restant à payer</th>
+						<th>Date de la prochaine échéance</th>
+					</tr>
+				{% for contrat in client.contrats %}	
+					{% if contrat.archivé == true %}
+					<tr>
+						<td>{{contrat.surface}}</td>
+
+						<td>{{contrat.loyer}}</td>
+						<td>{{contrat.MontantRestant}}</td>
+						<td>{{contrat.ProchaineEcheance | date('d/m/y')}}</td>
+					</tr>
+					{% endif %}
+				{% endfor %}
+
+				</table> 
+			</div>
+			
+			
+			
+	
+
+	
 
 {% endblock %}

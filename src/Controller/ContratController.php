@@ -81,7 +81,7 @@ class ContratController extends AbstractController
         $contratForm->handleRequest($request);
         if ($contratForm->isSubmitted() && $contratForm->isValid()) {
 
-
+            
             $contrat->setProchaineEcheance(clone $contrat->getDernierLoyer());
             date_add($contrat->getProchaineEcheance(), $contrat->getFrequencePayement());
             
@@ -101,4 +101,27 @@ class ContratController extends AbstractController
             'dataForm' => $contratForm->createView(),
         ]);
     }
+    
+    #[Route('/contrat/archiver/{contratId}', name: 'contrat_archiver')]
+    public function archiverContrat(int $contratId , ManagerRegistry $doctrine)
+    {
+        $entityManager = $doctrine->getManager();
+
+
+        $contratRepository = $entityManager->getRepository(Contrat::class);
+        $contrat = $contratRepository->findOneBy(["id" => $contratId]);
+        $contrat->setArchivé('1');
+        $entityManager->persist($contrat);
+        $entityManager->flush();
+        $this->addFlash(
+            'notice',
+            'Le contrat a bien été archivé!'
+        );
+        return $this->redirectToRoute('contrat_display',['clientId'=>$contrat->getClient()->getId()]);
+
+        
+
+    }
+
+    
 }

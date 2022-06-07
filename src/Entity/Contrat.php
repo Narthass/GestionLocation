@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ContratRepository;
+use Doctrine\DBAL\Driver\Mysqli\Initializer\Options;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContratRepository::class)]
@@ -36,6 +37,10 @@ class Contrat
     #[ORM\Column(type: 'float', nullable: true)]
     private $MontantRestant;
 
+    //On détermine que archivé est faux à la création d'un contrat
+    #[ORM\Column(type: 'boolean', options:['default'=>'0'])]
+    private $archivé = false;
+
   
 
 
@@ -43,8 +48,7 @@ class Contrat
    
 
 
-
-
+  
 
     public function getId(): ?int
     {
@@ -135,6 +139,18 @@ class Contrat
     public function setMontantRestant(?float $MontantRestant): self
     {
         $this->MontantRestant = $MontantRestant;
+
+        return $this;
+    }
+
+    public function isArchivé(): ?bool
+    {
+        return $this->archivé;
+    }
+
+    public function setArchivé(bool $archivé): self
+    {
+        $this->archivé = $archivé;
 
         return $this;
     }
