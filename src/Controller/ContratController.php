@@ -42,6 +42,37 @@ class ContratController extends AbstractController
         ]);
     }
 
+    #[Route('/contrat/create/{clientId}', name: 'contrat_create_for_client')]
+    public function createContratForAClient(ManagerRegistry $doctrine, Request $request,int $clientId): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $contrat = new Contrat;
+        $clientRepository=$doctrine->getRepository(Client::class);
+        $client = $clientRepository->findOneBy(["id" => $clientId]);
+        $contrat->setClient($client);
+        $contratForm = $this->createForm(ContratType::class, $contrat);
+        $contratForm->handleRequest($request);
+        if ($contratForm->isSubmitted() && $contratForm->isValid()) {
+            $contrat->setMontantRestant($contrat->getLoyer());
+            $contrat->setProchaineEcheance(clone $contrat->getDernierLoyer());
+            date_add($contrat->getProchaineEcheance(), $contrat->getFrequencePayement());
+            $entityManager->persist($contrat);
+            $entityManager->flush(); 
+            $this->addFlash(
+                'success',
+                'Le contrat a bien été créé !'
+            );
+
+
+            return $this->redirectToRoute('app_index');
+        }
+        return $this->render('index/dataform.html.twig', [
+
+            'formName' => 'Création du contrat',
+            'dataForm' => $contratForm->createView(),
+        ]);
+    }
+
     #[Route('/contrat/delete/{contratId}', name: 'contrat_delete')]
     public function deleteContrat(int $contratId, ManagerRegistry $doctrine): Response
     {
