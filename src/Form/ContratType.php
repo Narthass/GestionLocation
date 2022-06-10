@@ -73,7 +73,7 @@ class ContratType extends AbstractType
                 'data_class' =>null,
                 
                 
-                'data' => new \Datetime('now'),
+                
                 
                 
                 

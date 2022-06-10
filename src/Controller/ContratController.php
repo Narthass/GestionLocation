@@ -21,6 +21,7 @@ class ContratController extends AbstractController
         $contrat = new Contrat;
         $contratForm = $this->createForm(ContratType::class, $contrat);
         $contratForm->handleRequest($request);
+        $contrat->setDernierLoyer(new \Datetime('now'));
         if ($contratForm->isSubmitted() && $contratForm->isValid()) {
             $contrat->setMontantRestant($contrat->getLoyer());
             $contrat->setProchaineEcheance(clone $contrat->getDernierLoyer());
@@ -50,6 +51,7 @@ class ContratController extends AbstractController
         $clientRepository=$doctrine->getRepository(Client::class);
         $client = $clientRepository->findOneBy(["id" => $clientId]);
         $contrat->setClient($client);
+        $contrat->setDernierLoyer(new \Datetime('now'));
         $contratForm = $this->createForm(ContratType::class, $contrat);
         $contratForm->handleRequest($request);
         if ($contratForm->isSubmitted() && $contratForm->isValid()) {
