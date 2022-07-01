@@ -45,6 +45,7 @@ class IndexController extends AbstractController
                 $entityManager->flush();
             }
         }
+        dump($clients);
 
 
 

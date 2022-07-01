@@ -9,6 +9,7 @@
     <li>
     Le contrat : {{contrat.id}}
     du client: {{ contrat.client.nom }} {{ contrat.client.prenom }}
+    <a href="loc.ahausherr.fr{{path('payements_display',{'contratId':contrat.id})}}">En savoir plus sur sa situation</a>
     </li>
   {% endfor %}
   </ul>
