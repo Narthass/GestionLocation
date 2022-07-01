@@ -22,7 +22,7 @@ class IndexController extends AbstractController
         $clientRepository = $entityManager->getRepository(Client::class);
         $clients = $clientRepository->findAll();
         $contratRepository = $entityManager->getRepository(Contrat::class);
-        $contrats = $contratRepository->findAll();
+        $contrats = $contratRepository->findBy(['archivé'=>'0']);
         $alerter = null;
         foreach ($contrats as $contrat) {
             $actuel = new \DateTime('now');
@@ -45,7 +45,7 @@ class IndexController extends AbstractController
                 $entityManager->flush();
             }
         }
-        dump($clients);
+        
 
 
 
@@ -139,7 +139,7 @@ class IndexController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $contratRepository = $entityManager->getRepository(Contrat::class);
-        $contrats = $contratRepository->findAll();
+        $contrats = $contratRepository->findBy(['archivé'=>'0']);
         $alerter = null;
         foreach ($contrats as $contrat) {
             $actuel = new \DateTime('now');
