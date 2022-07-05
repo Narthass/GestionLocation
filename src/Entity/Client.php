@@ -35,6 +35,10 @@ class Client
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Contrat::class, cascade:['remove'])]
     private $contrats;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'clients')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
+
     public function __construct()
     {
         $this->contrats = new ArrayCollection();
@@ -132,6 +136,18 @@ class Client
                 $contrat->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
