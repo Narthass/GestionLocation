@@ -55,7 +55,7 @@ class SecurityController extends AbstractController
             ->add('roles', ChoiceType::class, [
                 'label' => 'Privilèges',
                 'choices' => [
-                    'Role: Client' => 'ROLE_CLIENT', //NOM DU CHAMP => VALEUR DU CHAMP
+                    'Role: Bailleur' => 'ROLE_BAILLEUR', //NOM DU CHAMP => VALEUR DU CHAMP
                     'Role: Admin' => 'ROLE_ADMIN',
                 ],
                 'expanded' => true, //Boutons plutôt que menu déroulant
@@ -97,7 +97,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/login', name: 'app_login')]
+    #[Route(path: '/login', name: 'app_login',methods:['GET','POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // if ($this->getUser()) {
