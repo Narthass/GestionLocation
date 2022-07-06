@@ -1,12 +1,16 @@
 
 {% if is_granted ('ROLE_USER')%}
 <div class="w3-bar w3-light-grey">
+    {% if is_granted ('ROLE_ADMIN')%}
+    <a href="{{path('admin_backoffice')}}" class="w3-bar-item w3-button w3-green">Clients</a>
+    {% else %}
     <a href="/" class="w3-bar-item w3-button w3-green">Clients</a>
-    
-   
+    {% endif %}
+     <a href="{{ path('app_logout')}}" class="w3-bar-item w3-button w3-red">Se deconnecter</a>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right"><i class="fa fa-search"></i></a>
+
 {% else %}
-    <a href="{{ path('app_register')}}" class="w3-bar-item w3-button w3-green">Register</a>
-    <a href="{{ path('app_login')}}" class="w3-bar-item w3-button w3-green">Login</a>
+    <a href="{{ path('app_register')}}" class="w3-bar-item w3-button w3-green">S'inscrire</a>
+    <a href="{{ path('app_login')}}" class="w3-bar-item w3-button w3-green">Se connecter</a>
 {% endif %}
 </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Client;
 use App\Entity\Contrat;
@@ -10,8 +10,10 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+#[Security('is_granted("ROLE_ADMIN")')]
+#[Route('/admin')]
 class ContratController extends AbstractController
 {
     #[Route('/contrat/create', name: 'contrat_create')]
@@ -34,7 +36,7 @@ class ContratController extends AbstractController
             );
 
 
-            return $this->redirectToRoute('app_index');
+            return $this->redirectToRoute('admin_backoffice');
         }
         return $this->render('index/dataform.html.twig', [
 
@@ -66,7 +68,7 @@ class ContratController extends AbstractController
             );
 
 
-            return $this->redirectToRoute('app_index');
+            return $this->redirectToRoute('admin_backoffice');
         }
         return $this->render('index/dataform.html.twig', [
 
@@ -83,7 +85,7 @@ class ContratController extends AbstractController
         $contrat = $contratRepository->findOneBy(['id' => $contratId]);
         $entityManager->remove($contrat);
         $entityManager->flush();
-        return $this->redirectToRoute('app_index');
+        return $this->redirectToRoute('admin_backoffice');
     }
 
 

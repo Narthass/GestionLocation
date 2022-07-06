@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Client;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -47,6 +49,15 @@ class ClientType extends AbstractType
 
                     
                 ]
+            ])
+            ->add('User', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'username',
+
+                'attr' => [
+                    'class' => 'w3-input w3-border w3-round w3-light-grey',
+                ]
+
             ])
            
             ->add('submit', SubmitType::class, [
