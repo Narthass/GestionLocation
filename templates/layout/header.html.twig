@@ -1,13 +1,30 @@
 
-{% if is_granted ('ROLE_USER')%}
 <div class="w3-bar w3-light-grey">
+<a href="{{path('app_index')}}" class="w3-bar-item w3-button w3-green">Accueil</a>
+<a href="" class="w3-bar-item w3-button w3-green">Avantages</a>
+
+{% if is_granted ('ROLE_USER')%}
+     <div class="w3-dropdown-hover">
+     <button class="w3-button">Vos options</button>
     {% if is_granted ('ROLE_ADMIN')%}
-    <a href="{{path('admin_backoffice')}}" class="w3-bar-item w3-button w3-green">Clients</a>
+    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+      <a href="{{path('admin_backoffice')}}" class="w3-bar-item w3-button">Clients</a>
+      <a href="#" class="w3-bar-item w3-button">Link 2</a>
+      <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    </div>
+    
+    
+
     {% else %}
-    <a href="/" class="w3-bar-item w3-button w3-green">Clients</a>
+    
+    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+      <a href="#" class="w3-bar-item w3-button">Link 1</a>
+      <a href="#" class="w3-bar-item w3-button">Link 2</a>
+      <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    </div>
+
     {% endif %}
-     <a href="{{ path('app_logout')}}" class="w3-bar-item w3-button w3-red">Se deconnecter</a>
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right"><i class="fa fa-search"></i></a>
+    </div>
 
 {% else %}
     <a href="{{ path('app_register')}}" class="w3-bar-item w3-button w3-green">S'inscrire</a>
