@@ -10,3 +10,8 @@
 #contratsArchives {
     display:none;
 }
+
+#navBar{
+    display:flex;
+    justify-content:flex-end;
+}

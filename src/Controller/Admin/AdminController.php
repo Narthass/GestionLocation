@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-#[Security('is_granted("ROLE_ADMIN")')]
+
 #[Route('/admin')]
 class AdminController extends AbstractController
 {
