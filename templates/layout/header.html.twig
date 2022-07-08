@@ -9,7 +9,7 @@
     {% if is_granted ('ROLE_ADMIN')%}
     <div class="w3-dropdown-content w3-bar-block w3-card-4">
       <a href="{{path('admin_backoffice')}}" class="w3-bar-item w3-button">Clients</a>
-      <a href="" class="w3-bar-item w3-button">Link 2</a>
+      <a href="{{path('app_logout')}}"  class="w3-bar-item w3-button">Logout</a>
       <a href="#" class="w3-bar-item w3-button">Link 3</a>
     </div>
     
@@ -19,7 +19,7 @@
     
     <div class="w3-dropdown-content w3-bar-block w3-card-4">
       <a href="{{ path('admin_backoffice')}}" class="w3-bar-item w3-button">Mes clients</a>
-      <a href="#" class="w3-bar-item w3-button">Link 2</a>
+      <a href="{{path('app_logout')}}" class="w3-bar-item w3-button">Logout</a>
       <a href="#" class="w3-bar-item w3-button">Link 3</a>
     </div>
 
