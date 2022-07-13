@@ -7,17 +7,16 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 
-import './styles/app.css';
+import './styles/app.scss';
 import './styles/w3.css';
 
 
 // start the Stimulus application
-import './bootstrap';
+import './bootstrap.js';
+
 
 // Rend temporaire l'affichage d'une  confirmation de creation ou update.
-const flash=document.getElementById('flash');
-window.setTimeout(function(){
-    flash.style.display='none';
-},5000);
+
+
 
 
