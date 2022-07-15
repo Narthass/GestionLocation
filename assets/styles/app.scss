@@ -2,6 +2,11 @@
 * {
     z-index:1;
     font-family: 'Manrope',sans serif;
+    
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    
 }
 
 #flash {
@@ -16,4 +21,11 @@
 #navBar{
     display:flex;
     justify-content:flex-end;
+}
+
+#etapes{
+    width:500px;
+}
+#etapes img{
+    width:100%;
 }
