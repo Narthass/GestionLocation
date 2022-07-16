@@ -1,7 +1,7 @@
 
 <div id="navBar" class="w3-bar w3-light-grey">
-<a href="{{path('app_index')}}" class="w3-bar-item w3-button w3-green">Accueil</a>
-<a href="" class="w3-bar-item w3-button w3-green">Avantages</a>
+<a href="{{path('app_index')}}" class="w3-bar-item w3-button ">Accueil</a>
+<a href="" class="w3-bar-item w3-button ">Avantages</a>
 
 {% if is_granted ('ROLE_USER')%}
      <div class="w3-dropdown-hover">
@@ -27,7 +27,7 @@
     </div>
 
 {% else %}
-    <a href="{{ path('app_register')}}" class="w3-bar-item w3-button w3-green">S'inscrire</a>
-    <a href="{{ path('app_login')}}" class="w3-bar-item w3-button w3-green">Se connecter</a>
+    <a href="{{ path('app_register')}}" class="w3-bar-item w3-button ">S'inscrire</a>
+    <a href="{{ path('app_login')}}" class="w3-bar-item w3-button ">Se connecter</a>
 {% endif %}
 </div>
