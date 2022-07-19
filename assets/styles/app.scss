@@ -1,4 +1,9 @@
 @import './bootstrap';
+@import 'C:/xampp/htdocs/ProjetCaravane/node_modules/bootstrap/scss/bootstrap.scss';
+$success:#72a333;
+$theme-colors: (
+  "success": $success
+);
 * {
     z-index:1;
     font-family: 'Manrope',sans serif;
@@ -21,6 +26,20 @@
 #navBar{
     display:flex;
     justify-content:flex-end;
+    width:1080px;
+    height: 64px;
+}
+
+#logo{
+    max-width: 100%;
+    height:auto;
+    border:0;
+    margin-right: auto;
+}
+#logo img{
+    max-width: 100%;
+    height:100%;
+
 }
 
 #etapes{
@@ -34,6 +53,7 @@
 
 #etapes .figure-caption{
     background-color: #72a333;
+    
 }
 
 #etapes .figure img{
@@ -42,4 +62,16 @@
 #navBar .w3-button{
     background-color:#72a333;
     color:white;
+}
+
+.paragraphe{
+    font-size: 21px ;
+    text-align:center;
+}
+
+.titre{
+    
+    font-size: 34px;
+    text-align: center;
+    font-weight: 600;
 }

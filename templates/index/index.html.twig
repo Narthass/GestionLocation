@@ -3,13 +3,14 @@
 {% block title %}Bienvenue sur Interloc ! {% endblock %}
 
 {% block body %}
-    <h1>Bienvenue sur Interloc !</h1>
-    <p>Gérer vos bails </p>
+    <h1 class='titre'>Bienvenue sur Interloc !</h1>
+    <p class='paragraphe'>Gérez vos bails en toute simplicité avec le notre tout nouveau Gestionnaire de location !
+        </p>
     <div class="d-flex justify-content-center  w-100"id="etapes" >
         
-        <figure class="figure border  rounded-circle border-3">
-            <img src="{{asset('images/portrait.png ')}}" class=" figure-img " alt="etape-client">
-            <figcaption class="figure-caption text-right rounded-5 border border-success rounded-pill  text-light">Commencez par créer votre client ...</figcaption>
+        <figure class="figure ">
+            <img src="{{asset('images/portrait.png ')}}" class= " figure-img border border-success rounded-circle border-3"  alt="etape-client">
+            <figcaption class="figure-caption text-right rounded-5 border border-success rounded-pill  text-light p-3">Commencez par créer votre client ...</figcaption>
         </figure>
         <figure class="figure"> 
             <img src="{{asset('images/fleche.png')}}"class=" figure-img"  alt="fleche">
@@ -17,20 +18,22 @@
 
         </figure>
         <figure class="figure">
-            <img src="{{asset('images/contracter.png')}}"class=" figure-img border  rounded-circle border-3"  alt="etape-contrat">
-            <figcaption class="figure-caption text-right rounded-5 border border-success rounded-pill  text-light">Puis liez lui un contrat ...</figcaption>       
+            <img src="{{asset('images/contracter.png')}}"class=" figure-img border border-success rounded-circle border-3"  alt="etape-contrat">
+            <figcaption class="figure-caption text-right rounded-5 border border-success rounded-pill  text-light p-3">Puis liez lui un contrat ...</figcaption>       
         </figure>
          <figure class="figure">
             <img src="{{asset('images/fleche.png')}}"class=" figure-img"  alt="fleche">
             
          </figure>
         <figure class="figure">
-            <img src="{{asset('images/paiement.png')}}"class="figure-img border  rounded-circle border-3"  alt="etape-paiement">
-            <figcaption class="figure-caption text-right rounded-5 border border-success rounded-pill text-light">Il ne vous reste plus qu'a gérer les paiements qui lui seront liés !</figcaption>
+            <img src="{{asset('images/paiement.png')}}"class=" figure-img border border-success rounded-circle border-3"  alt="etape-paiement">
+            <figcaption class="figure-caption text-right rounded-5 border border-success rounded-pill text-light p-3">Il ne vous reste plus qu'a gérer les paiements qui lui seront liés !</figcaption>
         </figure>
         
 
     </div>
+
+    <div></div>
 
     
 
