@@ -17,89 +17,101 @@ bouttonContratsArchives.style.display = "none";
 	</script>
 {% endblock %}
 {% block body %}
-<style>
-	.example-wrapper {
-		margin: 1em auto;
-		max-width: 800px;
-		width: 95%;
-		font: 18px / 1.5 sans-serif;
-	}
-	.example-wrapper code {
-		background: #F5F5F5;
-		padding: 2px 6px;
-	}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
 
-	#contratsArchives{
-		display:none;
-	}
-	
-</style>
+		#contratsArchives {
+			display: none;
+		}
+	</style>
 
-<h1>Liste des contrats de
-	{{ client.nom }}
-	{{ client.prenom }}
-</h1>
-<td>
-	<a href="{{path('contrat_create_for_client',{'clientId':client.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-yellow w3-round-xlarge">Ajouter un contrat</a>
-</td>
-{% for contrat in client.contrats %}
-	{% if contrat.archivé == false %}
-
-		<h2>contrat :{{contrat.id}}</h2>
-		<table class="w3-table w3-bordered w3-centered ">
-			<tr>
-				<th>Surface</th>
-
-
-				<th>Montant du loyer</th>
-				<th>Montant restant à payer</th>
-				<th>Date de la prochaine échéance</th>
-			</tr>
-
-
-			<tr>
-				<td>{{contrat.surface}}</td>
-
-				<td>{{contrat.loyer}}</td>
-				<td>{{contrat.MontantRestant}}</td>
-				<td>{{contrat.ProchaineEcheance | date('d/m/y')}}</td>
-				<td>
-					<a href="{{path('contrat_delete',{'contratId':contrat.id})}}" onclick="return confirm('etes vous sur de vouloir supprimer ce client?')" role="button" class="w3-btn w3-white w3-border w3-border-red w3-round-xlarge">supprimer</a>
-				</td>
-				<td>
-					<a href="{{path('contrat_update',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-blue w3-round-xlarge">modifier</a>
-				</td>
-				<td></td>
-				<td>
-					<a href="{{path('payements_display',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-purple w3-round-xlarge">payements</a>
-				</td>
-			</tr>
-		</td>
-		<td></td>
-		<td>
-			<a href="{{path('contrat_archiver',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-brown w3-round-xlarge">archiver</a>
-		</td>
+	<h1>Liste des contrats de
+		{{ client.nom }}
+		{{ client.prenom }}
+	</h1>
+	<td>
+		<a href="{{path('contrat_create_for_client',{'clientId':client.id})}}" role="button" class="btn btn-warning">Ajouter un contrat</a>
 	</td>
-</tr></table>{% endif %}{% endfor %}{% for contrat in client.contrats %}{% if contrat.archivé == true %}{% if loop.index0 == 0 %}
-<button onclick="afficherContratsArchives()">Les contrats archivés</button>
+	{% for contrat in client.contrats %}
+		{% if contrat.archivé == false %}
+
+			<h2>contrat :{{contrat.id}}</h2>
+			<table class="table border-info">
+				<tr>
+					<th>Surface</th>
 
 
-<div id="contratsArchives">
-	<table>
-		<tr>
-			<th>Surface</th>
+					<th>Montant du loyer</th>
+					<th>Montant restant à payer</th>
+					<th>Date de la prochaine échéance</th>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
 
 
-			<th>Montant du loyer</th>
-			<th>Montant restant à payer</th>
-			<th>Date de la prochaine échéance</th>
-		</tr>
-	{% endif %}
-	<tr>
-		<td>{{contrat.surface}}</td>
+				<tr>
+					<td>{{contrat.surface}}</td>
 
-		<td>{{contrat.loyer}}</td>
-		<td>{{contrat.MontantRestant}}</td>
-		<td>{{contrat.ProchaineEcheance | date('d/m/y')}}</td>
-	</tr>
-{% endif %}{% endfor %}</table></div>{% endblock %}
+					<td>{{contrat.loyer}}</td>
+					<td>{{contrat.MontantRestant}}</td>
+					<td>{{contrat.ProchaineEcheance | date('d/m/y')}}</td>
+					<td>
+						<a href="{{path('contrat_delete',{'contratId':contrat.id})}}" onclick="return confirm('etes vous sur de vouloir supprimer ce client?')" role="button" class="btn btn-outline-danger">supprimer</a>
+					</td>
+					<td>
+						<a href="{{path('contrat_update',{'contratId':contrat.id})}}" role="button" class="btn btn-outline-info">modifier</a>
+					</td>
+
+					<td>
+						<a href="{{path('payements_display',{'contratId':contrat.id})}}" role="button" class="btn btn-outline-success">payements</a>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="border-bottom-0">
+						<a href="{{path('contrat_archiver',{'contratId':contrat.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-brown w3-round-xlarge">archiver</a>
+					</td>
+				</tr>
+
+			</table>
+		{% endif %}
+	{% endfor %}
+	{% for contrat in client.contrats %}
+		{% if contrat.archivé == true %}
+			{% if loop.index0 == 0 %}
+				<button onclick="afficherContratsArchives()">Les contrats archivés</button>
+
+
+				<div id="contratsArchives">
+					<table>
+						<tr>
+							<th>Surface</th>
+
+
+							<th>Montant du loyer</th>
+							<th>Montant restant à payer</th>
+							<th>Date de la prochaine échéance</th>
+						</tr>
+					{% endif %}
+					<tr>
+						<td>{{contrat.surface}}</td>
+
+						<td>{{contrat.loyer}}</td>
+						<td>{{contrat.MontantRestant}}</td>
+						<td>{{contrat.ProchaineEcheance | date('d/m/y')}}</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}

@@ -23,25 +23,25 @@ class ClientType extends AbstractType
             ->add('nom',TextType::class,[
                 'label' =>'Nom du client',
                 'attr' => [
-                    'class' => 'w3-input w3-border w3-round w3-light-grey',
+                    'class' => 'form-control border border-info',
                 ],
             ])
             ->add('prenom',TextType::class,[
                 'label' =>'Prenom du client',
                 'attr' => [
-                    'class' => 'w3-input w3-border w3-round w3-light-grey',
+                    'class' => 'form-control border border-info',
                 ],
             ])
             ->add('email',EmailType::class,[
                 'label' =>'Adresse mail du client',
                 'attr' => [
-                    'class' => 'w3-input w3-border w3-round w3-light-grey',
+                    'class' => 'form-control border border-info',
                 ],
             ])
             ->add('telephone',TelType::class,[
                 'label' =>'Numero de telephone du client',
                 'attr' => [
-                    'class' => 'w3-input w3-border w3-round w3-light-grey',
+                    'class' => 'form-control border border-info',
                     
                 ],
                 'constraints' =>[
@@ -55,7 +55,7 @@ class ClientType extends AbstractType
                 'choice_label' => 'username',
 
                 'attr' => [
-                    'class' => 'w3-input w3-border w3-round w3-light-grey',
+                    'class' => 'form-control border border-info',
                 ]
 
             ])
@@ -63,7 +63,7 @@ class ClientType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [
-                    'class' => 'w3-button w3-black w3-margin-bottom',
+                    'class' => 'btn  btn-info ',
                     'style' => 'margin-top: 10px',
                 ]
             ])

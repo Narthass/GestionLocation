@@ -33,7 +33,7 @@ class ContratType extends AbstractType
             ->add('surface', TextareaType::class, [
                 'label' => 'Description de la parcelle louée',
                 'attr' => [
-                    'class' => 'w3-input w3-border w3-round w3-light-grey',
+                    'class' => 'form-control border border-info',
                 ]
             ])
             ->add('FrequencePayement', DateIntervalType::class, [
@@ -47,7 +47,7 @@ class ContratType extends AbstractType
                 ],
                 
                 'attr' => [
-                    'class' => 'w3-input w3-border w3-round w3-light-grey',
+                    'class' => 'form-control border border-info',
                 ]
             ])
             
@@ -56,7 +56,7 @@ class ContratType extends AbstractType
             ->add('loyer',NumberType::class,[
                 'label'=>'Quel est le montant du loyer ?',
                 'attr' => [
-                    'class' => 'w3-input w3-border w3-round w3-light-grey',
+                    'class' => 'form-control border border-info',
                 ]
 
                 
@@ -66,7 +66,7 @@ class ContratType extends AbstractType
                 'choice_label' => 'nom',
 
                 'attr' => [
-                    'class' => 'w3-input w3-border w3-round w3-light-grey',
+                    'class' =>'form-control border border-info',
                 ]
 
             ])
@@ -86,7 +86,7 @@ class ContratType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [
-                    'class' => 'w3-button w3-black w3-margin-bottom',
+                    'class' => 'btn  btn-info text-success',
                     'style' => 'margin-top: 10px',
                 ]
             ])
