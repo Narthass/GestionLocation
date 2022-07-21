@@ -1,34 +1,55 @@
+<nav class="navbar navbar-expand-lg bg-light" >
+	<div class="container-fluid">
+		<a class="navbar-brand" href="{{path('app_index')}}">Index</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span> 
+    </button>
+    <div class="collapse navbar-collapse " id"navbarsupportedcontent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+				<li class="nav-item bg-success ">
+					<a class="nav-link active text-light" aria-current="page" href="{{path('app_index')}}">Index</a>
+				</li>
+        
 
-<div id="navBar" class="w3-bar w3-light-grey">
-<a id='logo' href="{{path('app_index')}}"><img src="/images/logo.png"></a>
-<a href="{{path('app_index')}}" class="w3-bar-item w3-button ">Accueil</a>
-<a href="" class="w3-bar-item w3-button ">Avantages</a>
 
-{% if is_granted ('ROLE_USER')%}
-     <div class="w3-dropdown-hover">
-     <button class="w3-button">Vos options</button>
-    {% if is_granted ('ROLE_ADMIN')%}
-    <div class="w3-dropdown-content w3-bar-block w3-card-4">
-      <a href="{{path('admin_backoffice')}}" class="w3-bar-item w3-button">Clients</a>
-      <a href="{{path('app_logout')}}"  class="w3-bar-item w3-button">Logout</a>
-      <a href="#" class="w3-bar-item w3-button">Link 3</a>
-    </div>
-    
-    
+				{% if is_granted ('ROLE_USER')%}
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle bg-success text-light"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Vos options
+						</a>
+						{% if is_granted ('ROLE_ADMIN')%}
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item bg-success text-light" href="{{path('admin_backoffice')}}">Client</a>
+								</li>
+								<li>
+									<a class="dropdown-item bg-success text-light" href="{{path('app_logout')}}">Deconnection</a>
+								</li>
+							</ul>
 
-    {% else %}
-    
-    <div class="w3-dropdown-content w3-bar-block w3-card-4">
-      <a href="{{ path('admin_backoffice')}}" class="w3-bar-item w3-button">Mes clients</a>
-      <a href="{{path('app_logout')}}" class="w3-bar-item w3-button">Logout</a>
-      <a href="#" class="w3-bar-item w3-button">Link 3</a>
-    </div>
 
-    {% endif %}
-    </div>
+						{% else %}
 
-{% else %}
-    <a href="{{ path('app_register')}}" class="w3-bar-item w3-button ">S'inscrire</a>
-    <a href="{{ path('app_login')}}" class="w3-bar-item w3-button ">Se connecter</a>
-{% endif %}
-</div>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item bg-success text-light" href="{{path('admin_backoffice')}}">Client</a>
+								</li>
+								<li>
+									<a class="dropdown-item bg-success text-light" href="{{path('app_logout')}}">Deconnection</a>
+								</li>
+							</ul>
+						{% endif %}
+					</li>
+
+				{% else %}
+					<li class="nav-item bg-success text-light">
+						<a class="nav-link active" aria-current="page" href="{{path('app_register')}}">S'inscrire</a>
+					</li>
+					<li class="nav-item bg-success">
+						<a class="nav-link active" aria-current="page" href="{{path('app_login')}}">Se connecter</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+</nav>

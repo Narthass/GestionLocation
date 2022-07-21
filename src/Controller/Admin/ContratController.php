@@ -42,6 +42,7 @@ class ContratController extends AbstractController
 
             'formName' => 'Création du contrat',
             'dataForm' => $contratForm->createView(),
+            
         ]);
     }
 
@@ -68,12 +69,13 @@ class ContratController extends AbstractController
             );
 
 
-            return $this->redirectToRoute('admin_backoffice');
+            return $this->redirectToRoute('contrat_display');
         }
         return $this->render('index/dataform.html.twig', [
 
             'formName' => 'Création du contrat',
             'dataForm' => $contratForm->createView(),
+            'clientId'=>$clientId,
         ]);
     }
 

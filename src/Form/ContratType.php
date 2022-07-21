@@ -55,6 +55,10 @@ class ContratType extends AbstractType
 
             ->add('loyer',NumberType::class,[
                 'label'=>'Quel est le montant du loyer ?',
+                'attr' => [
+                    'class' => 'w3-input w3-border w3-round w3-light-grey',
+                ]
+
                 
             ])
             ->add('client', EntityType::class, [

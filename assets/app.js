@@ -12,7 +12,10 @@ import './styles/w3.css';
 
 
 // start the Stimulus application
-import './bootstrap.js';
+
+import ('../node_modules/bootstrap/dist/js/bootstrap.js');
+
+
 
 
 // Rend temporaire l'affichage d'une  confirmation de creation ou update.
