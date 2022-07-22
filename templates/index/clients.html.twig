@@ -75,9 +75,9 @@
   <td>{{client.email}}</td>
   <td>{{client.telephone}}</td>
   
-  <td><a href="{{path('client_delete',{'clientId':client.id})}}" role="button" onclick="return confirm('etes vous sur de vouloir supprimer ce client?')" class=" w3-btn w3-white w3-border w3-border-red w3-round-xlarge">supprimer</a></td>
-  <td><a href="{{path('client_update',{'clientId':client.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-blue w3-round-xlarge">modifier</a></td>
-   <td><a href="{{path('contrat_display',{'clientId':client.id})}}" role="button" class="w3-btn w3-white w3-border w3-border-purple w3-round-xlarge">contrats</a></td>
+   <td><a href="{{path('client_delete',{'clientId':client.id})}}" role="button" onclick="return confirm('etes vous sur de vouloir supprimer ce client?')" class=" btn btn-outline-danger">supprimer</a></td>
+  <td><a href="{{path('client_update',{'clientId':client.id})}}" role="button" class="btn btn-outline-info">modifier</a></td>
+   <td><a href="{{path('contrat_display',{'clientId':client.id})}}" role="button" class="btn btn-outline-success">contrats</a></td>
 
 </tr>
 {% endfor %}
@@ -85,9 +85,9 @@
 
 
 <tr>
-  <td class="border-bottom-0"><a href="{{path('client_create')}}" role="button" class="btn btn-success">Ajouter un client</a></td>
+  <td class="border-bottom-0"><a href="{{path('client_create')}}" role="button" class="btn btn-success text-light">Ajouter un client</a></td>
   {% if clients is not empty %}
-  <td class="border-bottom-0"><a href="{{path('contrat_create')}}" role="button" class="btn btn-warning">Ajouter un contrat</a></td>
+  <td class="border-bottom-0"><a href="{{path('contrat_create')}}" role="button" class="btn btn-warning text-light">Ajouter un contrat</a></td>
   {% endif %}
   
 

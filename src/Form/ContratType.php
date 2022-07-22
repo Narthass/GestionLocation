@@ -86,7 +86,7 @@ class ContratType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [
-                    'class' => 'btn  btn-info text-success',
+                    'class' => 'btn  btn-info text-light',
                     'style' => 'margin-top: 10px',
                 ]
             ])

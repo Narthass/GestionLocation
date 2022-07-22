@@ -69,7 +69,7 @@ class ContratController extends AbstractController
             );
 
 
-            return $this->redirectToRoute('contrat_display');
+            return $this->redirectToRoute('contrat_display',array('clientId'=>$clientId));
         }
         return $this->render('index/dataform.html.twig', [
 

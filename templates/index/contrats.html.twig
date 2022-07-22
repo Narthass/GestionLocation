@@ -39,7 +39,7 @@ bouttonContratsArchives.style.display = "none";
 		{{ client.prenom }}
 	</h1>
 	<td>
-		<a href="{{path('contrat_create_for_client',{'clientId':client.id})}}" role="button" class="btn btn-warning">Ajouter un contrat</a>
+		<a href="{{path('contrat_create_for_client',{'clientId':client.id})}}" role="button" class="btn btn-warning text-light">Ajouter un contrat</a>
 	</td>
 	{% for contrat in client.contrats %}
 		{% if contrat.archivé == false %}
