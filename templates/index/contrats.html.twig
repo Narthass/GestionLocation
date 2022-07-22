@@ -3,19 +3,7 @@
 {% block title %}Contrats
 {% endblock %}
 
-{% block javascripts %}
 
-	<script>
-		function afficherContratsArchives() {
-var bouttonContratsArchives = document.getElementById("contratsArchives");
-if (bouttonContratsArchives.style.display == "none") {
-bouttonContratsArchives.style.display = "block";
-} else {
-bouttonContratsArchives.style.display = "none";
-}
-}
-	</script>
-{% endblock %}
 {% block body %}
 	<style>
 		.example-wrapper {
@@ -66,7 +54,7 @@ bouttonContratsArchives.style.display = "none";
 					<td>{{contrat.MontantRestant}}</td>
 					<td>{{contrat.ProchaineEcheance | date('d/m/y')}}</td>
 					<td>
-						<a href="{{path('contrat_delete',{'contratId':contrat.id})}}" onclick="return confirm('etes vous sur de vouloir supprimer ce client?')" role="button" class="btn btn-outline-danger">supprimer</a>
+						<a href="{{path('contrat_delete',{'contratId':contrat.id,'clientId':contrat.client.id})}}" onclick="return confirm('etes vous sur de vouloir supprimer ce client?')" role="button" class="btn btn-outline-danger">supprimer</a>
 					</td>
 					<td>
 						<a href="{{path('contrat_update',{'contratId':contrat.id})}}" role="button" class="btn btn-outline-info">modifier</a>
