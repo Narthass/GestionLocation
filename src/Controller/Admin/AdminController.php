@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use App\Entity\Client;
 use App\Entity\Contrat;
 use App\Form\ClientType;
@@ -11,9 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin')]
 class AdminController extends AbstractController
@@ -147,6 +148,8 @@ class AdminController extends AbstractController
         $contratRepository = $entityManager->getRepository(Contrat::class);
         $contrats = $contratRepository->findBy(['archivé'=>'0']);
         $alerter = null;
+         /** @var \App\Entity\User $user */
+        $user=$this->getUser();
         foreach ($contrats as $contrat) {
             $actuel = new \DateTime('now');
             $pEcheance = $contrat->getProchaineEcheance();
@@ -174,8 +177,8 @@ class AdminController extends AbstractController
         if (is_null($alerter) == false) {
 
             $email = (new TemplatedEmail())
-                ->from('admin@symrecipe.com')
-                ->to('admin@symrecipe.com')
+                ->from($user->getEmail()) 
+                ->to($user->getEmail())
                 //->cc('cc@example.com')
                 //->bcc('bcc@example.com')
                 //->replyTo('fabien@example.com')

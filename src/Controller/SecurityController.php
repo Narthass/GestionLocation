@@ -9,11 +9,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -52,18 +54,11 @@ class SecurityController extends AbstractController
                     ],
                 ],
             ])
-            ->add('roles', ChoiceType::class, [
-                'label' => 'Privilèges',
-                'choices' => [
-                    'Role: Bailleur' => 'ROLE_BAILLEUR', //NOM DU CHAMP => VALEUR DU CHAMP
-                    'Role: Admin' => 'ROLE_ADMIN',
-                ],
-                'expanded' => true, //Boutons plutôt que menu déroulant
-                'multiple' => false, //On est soit Client, soit Admin   
-                'attr' => [
-                    'class' => 'w3-input w3-border w3-round w3-light-grey',
-                ],          
-            ])
+            ->add('Email',EmailType::class,[
+                'attr'=>['class' => 'w3-input w3-border w3-round w3-light-grey',
+
+            ]])
+            
             ->add('submit', SubmitType::class, [
                 'label' => 'Inscription',
                 'attr' => [
@@ -73,6 +68,7 @@ class SecurityController extends AbstractController
             ])
             ->getForm()
         ;
+        
         //Nous traitons les données reçues au sein de notre formulaire
         $userForm->handleRequest($request);
         //Si le formulaire est rempli et valide, nous le prenons en charge
@@ -82,7 +78,7 @@ class SecurityController extends AbstractController
             //Nous créons et renseignons notre Entity User
             $user = new User;
             $user->setUsername($data['username']);
-            $user->setRoles(['ROLE_USER', $data['roles']]);
+           $user->setEmail($data['Email']);
             $user->setPassword($passHasher->hashPassword($user, $data['password']));
             $entityManager->persist($user);
             $entityManager->flush();

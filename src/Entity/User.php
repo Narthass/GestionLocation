@@ -29,9 +29,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Client::class)]
     private $clients;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $Email;
+
     public function __construct()
     {
         $this->clients = new ArrayCollection();
+        
+        //Si a la création le role d'admin n'ets pas attribué alors le compte créé est un compte bailleur.
+        if($this->getRoles() != ['ROLE_USER','ROLE_ADMIN']){
+            $this->setRoles(['ROLE_USER','ROLE_BAILLEUR']);
+
+
+        }
     }
 
     public function getId(): ?int
@@ -130,6 +140,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $client->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->Email;
+    }
+
+    public function setEmail(string $Email): self
+    {
+        $this->Email = $Email;
 
         return $this;
     }
