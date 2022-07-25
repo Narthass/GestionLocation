@@ -59,6 +59,8 @@ class ClientType extends AbstractType
                 ]
 
             ])
+        
+           
            
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
@@ -67,6 +69,8 @@ class ClientType extends AbstractType
                     'style' => 'margin-top: 10px',
                 ]
             ])
+
+            
         
         ;
     }

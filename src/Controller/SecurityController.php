@@ -78,7 +78,7 @@ class SecurityController extends AbstractController
             //Nous créons et renseignons notre Entity User
             $user = new User;
             $user->setUsername($data['username']);
-           $user->setEmail($data['Email']);
+            $user->setEmail($data['Email']);
             $user->setPassword($passHasher->hashPassword($user, $data['password']));
             $entityManager->persist($user);
             $entityManager->flush();

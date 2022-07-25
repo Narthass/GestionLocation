@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Client;
 use App\Entity\Contrat;
+use App\Form\ClientType;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -57,4 +59,35 @@ class ClientController extends AbstractController
 
         ]);
 }
+
+#[Route('/client/create', name: 'client_create_for_bailleur')]
+public function createClient(ManagerRegistry $doctrine, Request $request): Response
+{
+    $entityManager = $doctrine->getManager();
+    $client = new Client;
+    $clientForm = $this->createForm(ClientType::class, $client);
+    $clientForm->handleRequest($request);
+    /** @var \App\Entity\User $user */
+    $user=$this->getUser();
+    if ($clientForm->isSubmitted() && $clientForm->isValid()) {
+        
+
+        $client->setUser($user);
+        $entityManager->persist($client);
+        $entityManager->flush();
+        $this->addFlash(
+            'success',
+            'Le client a bien été créé !'
+        );
+
+
+        return $this->redirectToRoute('admin_backoffice');
+    }
+    return $this->render('index/dataform.html.twig', [
+
+        'formName' => 'Création du client',
+        'dataForm' => $clientForm->createView(),
+    ]);
+}
+
 }
