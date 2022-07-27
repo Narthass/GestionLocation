@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
+
 use App\Entity\Client;
 use App\Entity\Contrat;
 use App\Form\ClientType;
@@ -12,8 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin')]
@@ -62,7 +61,7 @@ class AdminController extends AbstractController
     }
 
 
-    #[Route('/client/create', name: 'client_create')]
+    #[Route('/client/create', name: 'client_create_admin')]
     public function createClient(ManagerRegistry $doctrine, Request $request): Response
     {
         $entityManager = $doctrine->getManager();
@@ -90,7 +89,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('client/delete/{clientId}', name: 'client_delete')]
+    #[Route('client/delete/{clientId}', name: 'client_delete_admin')]
     public function deleteClient(int $clientId, ManagerRegistry $doctrine)
     {
         $entityManager = $doctrine->getManager();
@@ -104,7 +103,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_backoffice');
     }
 
-    #[Route('client/update/{clientId}', name: 'client_update')]
+    #[Route('client/update/{clientId}', name: 'client_update_admin')]
     public function updateClient(int $clientId, ManagerRegistry $doctrine, Request $request)
     {
         $entityManager = $doctrine->getManager();

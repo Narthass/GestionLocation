@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Client;
 use App\Entity\User;
+use App\Entity\Client;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -50,6 +52,10 @@ class ClientType extends AbstractType
                     
                 ]
             ])
+            
+            
+            
+            
             ->add('User', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'username',
@@ -60,6 +66,7 @@ class ClientType extends AbstractType
 
             ])
         
+           
            
            
             ->add('submit', SubmitType::class, [
