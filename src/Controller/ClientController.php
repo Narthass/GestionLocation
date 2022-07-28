@@ -148,6 +148,7 @@ class ClientController extends AbstractController
         $alerter = null;
          /** @var \App\Entity\User $user */
         $user=$this->getUser();
+        $userMail=$user->getEmail();
         foreach ($contrats as $contrat) {
             $actuel = new \DateTime('now');
             $pEcheance = $contrat->getProchaineEcheance();
@@ -175,8 +176,8 @@ class ClientController extends AbstractController
         if (is_null($alerter) == false) {
 
             $email = (new TemplatedEmail())
-                ->from($user->getEmail()) 
-                ->to($user->getEmail())
+                ->from('locationchabotterie@gmail.com') 
+                ->to($userMail)
                 //->cc('cc@example.com')
                 //->bcc('bcc@example.com')
                 //->replyTo('fabien@example.com')

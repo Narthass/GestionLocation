@@ -3,8 +3,21 @@
 {% block title %}Contrats
 {% endblock %}
 
-
+{% block javascripts %}
+<script>   
+function afficherContratsArchives(){
+	var bouttonContratsArchives = document.getElementById("contratsArchives");
+    if (bouttonContratsArchives.style.display == "none") {
+    bouttonContratsArchives.style.display = "block";
+    } else {
+    bouttonContratsArchives.style.display = "none";
+    }}
+    
+    afficherContratsArchives();
+	</script>
+{% endblock %}
 {% block body %}
+	
 	<style>
 		.example-wrapper {
 			margin: 1em auto;

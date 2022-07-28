@@ -14,15 +14,7 @@ import './styles/w3.css';
 // start the Stimulus application
 
 import ('../node_modules/bootstrap/dist/js/bootstrap.js');
-function afficherContratsArchives() {
-    var bouttonContratsArchives = document.getElementById("contratsArchives");
-    if (bouttonContratsArchives.style.display == "none") {
-    bouttonContratsArchives.style.display = "block";
-    } else {
-    bouttonContratsArchives.style.display = "none";
-    }
-    }
-    afficherContratsArchives();
+
 
 
 
